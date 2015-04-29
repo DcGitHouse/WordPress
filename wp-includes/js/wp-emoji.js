@@ -61,24 +61,13 @@
 			if ( MutationObserver ) {
 				new MutationObserver( function( mutationRecords ) {
 					var i = mutationRecords.length,
-						addedNodes, removedNodes, ii, node;
+						ii, node;
 
 					while ( i-- ) {
-						addedNodes = mutationRecords[ i ].addedNodes;
-						removedNodes = mutationRecords[ i ].removedNodes;
-						ii = addedNodes.length;
-
-						if (
-							ii === 1 && removedNodes.length === 1 &&
-							addedNodes[0].nodeType === 3 &&
-							removedNodes[0].nodeName === 'IMG' &&
-							addedNodes[0].data === removedNodes[0].alt
-						) {
-							return;
-						}
+						ii = mutationRecords[ i ].addedNodes.length;
 
 						while ( ii-- ) {
-							node = addedNodes[ ii ];
+							node = mutationRecords[ i ].addedNodes[ ii ];
 
 							if ( node.nodeType === 3 ) {
 								node = node.parentNode;
